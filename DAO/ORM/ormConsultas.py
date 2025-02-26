@@ -57,3 +57,23 @@ class ORMConsultas:
                 print(f"[DEBUG] Update realizado com sucesso em '{tabela}'. ID: {id_valor}, Dados: {dados}")
         except Exception as e:
             print(f"[DEBUG] Erro no UPDATE em '{tabela}': {e}")
+
+    def selectAll(self, tabela):
+        # Exemplo: retorna tudo da tabela
+        sql = f'SELECT * FROM {tabela}'
+        with self.conexao.cursor() as cursor:
+            cursor.execute(sql)
+            rows = cursor.fetchall()
+            return rows
+
+    def deleteRow(self, tabela, row_id):
+        sql = f'DELETE FROM {tabela} WHERE id = %s'
+        with self.conexao.cursor() as cursor:
+            cursor.execute(sql, (row_id,))
+        self.conexao.commit()
+
+    def updateRow(self, tabela, user_id, nome, email):
+        sql = f'UPDATE {tabela} SET nome=%s, email=%s WHERE id=%s'
+        with self.conexao.cursor() as cursor:
+            cursor.execute(sql, (nome, email, user_id))
+        self.conexao.commit()

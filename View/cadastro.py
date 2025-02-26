@@ -14,7 +14,7 @@ def cadastrar_usuario(event=None):
         "nome": nome,
         "email": email,
         "senha": senha,
-        "nivelAcesso": 1
+        "nivelAcesso": 2
     }
 
     response = UserController.insertUser(dados_usuario)
@@ -29,7 +29,7 @@ def cadastrar_usuario(event=None):
 
 titulo_sistema = pn.pane.Markdown("<h1>Sistema de Denúncia de Barreiras</h1>", align="center", width=400)
 logo_sistema = pn.pane.PNG("C:/Users/aaron/PycharmProjects/SistemaDenunciaUFC/View/icons/brasao4_vertical_cor_300dpi.png", width=60, height=60)
-cabecalho = pn.Row( titulo_sistema,logo_sistema, align="center",  width=400)
+cabecalho = pn.Row( titulo_sistema,logo_sistema, align="center",  width=500)
 
 titulo = pn.pane.Markdown("## Cadastro de Usuário", align="center")
 input_nome = pn.widgets.TextInput(name="Nome")
@@ -53,6 +53,12 @@ layout_cadastro = pn.Column(
     width=400
 )
 
-pagina_cadastro = pn.Row(cabecalho,pn.Row(layout_cadastro, align="center"))
+pagina_cadastro = pn.Column(
+    pn.Row(cabecalho, align="center"),      # Cabeçalho em uma linha centrada
+    pn.Spacer(height=50),                  # Espaço vertical
+    pn.Row(layout_cadastro, align="center"),  # Formulário em outra linha centrada
+    align="center"
+)
+
 
 pagina_cadastro.servable()
